@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF8FF"
+    android:padding="16dp"
+    tools:context=".ParentHomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- 🔹 상단 프로필 카드 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            card_view:cardCornerRadius="16dp"
+            card_view:cardElevation="4dp"
+            card_view:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp" />
+
+                <!--android:src="@drawable/ic_parent_avatar"-->
+                <!--android:background="@drawable/bg_circle_light_pink"-->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="김부모님의 가계부"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#2B2B2B" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="부모 계정"
+                        android:textSize="12sp"
+                        android:textColor="#9A9A9A" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnFamily"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="가족"
+                    android:textSize="15sp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#4E5BFF"/>
+                    <!--android:background="@drawable/bg_round_button_purple"-->
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🔹 이번 달 잔액 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="16dp"
+            card_view:cardElevation="4dp"
+            android:layout_marginBottom="16dp"
+            card_view:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번 달 잔액"
+                    android:textColor="#5A5A5A"
+                    android:textSize="14sp"
+                    android:drawablePadding="6dp" />
+                    <!--android:drawableStart="@drawable/ic_wallet"-->
+
+
+                <TextView
+                    android:id="@+id/tvBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="+2,025,000원"
+                    android:textColor="#3A4FD0"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="잘하고 있어요! 🎉"
+                    android:textSize="13sp"
+                    android:textColor="#7A7A7A"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🔹 수입 / 지출 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                card_view:cardCornerRadius="16dp"
+                card_view:cardElevation="3dp"
+                card_view:cardBackgroundColor="#E9F8EF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이번 달 수입"
+                        android:textSize="13sp"
+                        android:textColor="#1D8848" />
+
+                    <TextView
+                        android:id="@+id/tvIncome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+3,650,000원"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#1D8848" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                card_view:cardCornerRadius="16dp"
+                card_view:cardElevation="3dp"
+                card_view:cardBackgroundColor="#FFE7E7">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이번 달 지출"
+                        android:textSize="13sp"
+                        android:textColor="#B11717" />
+
+                    <TextView
+                        android:id="@+id/tvExpense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-1,625,000원"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#B11717" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- 🔹 저축 목표 달성률 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="16dp"
+            card_view:cardElevation="3dp"
+            android:layout_marginBottom="16dp"
+            card_view:cardBackgroundColor="#F9F7FF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎯 저축 목표 달성률"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="#2B2B2B" />
+
+                <ProgressBar
+                    android:id="@+id/progressSaving"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:max="100"
+                    android:progress="40"
+                    android:progressTint="#4E5BFF"
+                    android:progressBackgroundTint="#E2E2E2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="현재 저축: 200,000원 / 목표 500,000원"
+                    android:textColor="#6A6A6A"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40% 달성"
+                    android:textStyle="bold"
+                    android:textColor="#4E5BFF"
+                    android:textSize="13sp"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🔹 지출 한도 현황 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="16dp"
+            card_view:cardElevation="3dp"
+            android:layout_marginBottom="16dp"
+            card_view:cardBackgroundColor="#FFF8F6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💸 지출 한도 현황"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="#2B2B2B" />
+
+                <ProgressBar
+                    android:id="@+id/progressLimit"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:max="100"
+                    android:progress="81"
+                    android:progressTint="#FF6B6B"
+                    android:progressBackgroundTint="#E2E2E2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="현재 지출: 1,625,000원 / 한도 2,000,000원"
+                    android:textColor="#6A6A6A"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="81% 사용 ⚡ 80% 이상 사용 중"
+                    android:textColor="#C93616"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🔹 거래 내역 카드 -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체 거래 내역"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="#2B2B2B" />
+
+                <!-- ✅ 탭 영역 -->
+                <LinearLayout
+                    android:id="@+id/tabContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#F1F1F3"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:weightSum="2"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:id="@+id/tabMy"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="나의 거래 내역"
+                        android:textSize="13sp"
+                        android:textColor="#FFFFFF"
+                        android:paddingHorizontal="6dp" />
+
+                    <!--android:background="@drawable/bg_tab_selected"-->
+
+
+                    <TextView
+                        android:id="@+id/tabChild"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="자녀"
+                        android:textSize="13sp"
+                        android:textColor="#727272"
+                        android:background="@android:color/transparent" />
+                </LinearLayout>
+
+                <!-- ✅ 거래 목록 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerTransactions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
