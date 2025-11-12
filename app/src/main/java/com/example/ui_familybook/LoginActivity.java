@@ -1,50 +1,36 @@
 package com.example.ui_familybook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-
-    private LinearLayout layoutLogin, layoutSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);   // 앞에서 만든 로그인 레이아웃
 
-        layoutLogin = findViewById(R.id.layoutLogin);
-        layoutSignup = findViewById(R.id.layoutSignup);
+        TextView tabLogin = findViewById(R.id.tab_login);
+        TextView tabRegister = findViewById(R.id.tab_register);
+        Button btnLogin = findViewById(R.id.btn_login);
 
-        Button btnTabLogin = findViewById(R.id.btnTabLogin);
-        Button btnTabSignup = findViewById(R.id.btnTabSignup);
-        Button btnLogin = findViewById(R.id.btnLogin);
-        Button btnSignup = findViewById(R.id.btnSignup);
+        // 로그인 탭은 현재 화면이니까 아무 것도 안 해도 됨
 
-        btnTabLogin.setOnClickListener(v -> {
-            layoutLogin.setVisibility(View.VISIBLE);
-            layoutSignup.setVisibility(View.GONE);
+        // 회원가입 탭 → 역할 선택 화면으로 이동
+        tabRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterSelectActivity.class);
+            startActivity(intent);
         });
 
-        btnTabSignup.setOnClickListener(v -> {
-            layoutLogin.setVisibility(View.GONE);
-            layoutSignup.setVisibility(View.VISIBLE);
-        });
-
+        // 로그인 버튼 눌렀을 때 (여기선 일단 토스트나 다음 화면으로 가는 자리)
         btnLogin.setOnClickListener(v -> {
-            // 실제로는 로그인 검증 후
-            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
-            startActivity(intent);
-        });
-
-        btnSignup.setOnClickListener(v -> {
-            // 가입 처리 후 홈으로
-            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
-            startActivity(intent);
+            // TODO: 실제 로그인 로직
+            // 예시로 일단 완료 메시지 or 메인화면으로 이동 넣어도 됨
         });
     }
 }
