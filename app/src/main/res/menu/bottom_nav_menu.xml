@@ -2,19 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_bottom_home"
+        app:showAsAction="always"
         android:title="홈" />
     <item
-        android:id="@+id/nav_add"
+        android:id="@+id/addFragment"
         android:icon="@drawable/ic_bottom_add"
+        app:showAsAction="always"
         android:title="추가" />
     <item
-        android:id="@+id/nav_stats"
+        android:id="@+id/statsFragment"
         android:icon="@drawable/ic_bottom_stats"
+        app:showAsAction="always"
         android:title="통계" />
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/settingFragment"
         android:icon="@drawable/ic_bottom_setting"
+        app:showAsAction="always"
         android:title="설정" />
 </menu>
