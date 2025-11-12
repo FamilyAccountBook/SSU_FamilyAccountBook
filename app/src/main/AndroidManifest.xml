@@ -12,8 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UI_familyBook">
         <activity
-            android:name=".login"
+            android:name=".TransactionItem"
             android:exported="false" />
+        <activity
+            android:name=".ChildHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ParentHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterFormActivity"
+            android:exported="false" /> <!-- 회원가입 -->
+        <activity
+            android:name=".RegisterSelectActivity"
+            android:exported="false" /> <!-- 부모/자녀 선택 -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" /> <!-- 앱 시작점, 로그인 -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
