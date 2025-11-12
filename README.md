@@ -20,7 +20,7 @@
 
 git add .
 
-git commit -m "feat: 로그인 UI 레이아웃 완성 (#3)"
+git commit -m "feat. 로그인 UI 레이아웃 완성 (#3)"
 
 
 ## 
