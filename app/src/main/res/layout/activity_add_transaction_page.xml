@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@drawable/bg_header_gradient">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 상단 뒤로가기 -->
+            <LinearLayout
+                android:id="@+id/toolbarBack"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="28dp"
+                android:paddingRight="12dp"
+                android:paddingTop="23dp"
+                android:paddingBottom="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginRight="16dp"
+                    android:scaleType="fitXY"
+                    app:shapeAppearanceOverlay="@style/cr8"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="뒤로가기"
+                    android:textSize="14sp"
+                    android:textColor="#0A0A0A"/>
+            </LinearLayout>
+
+            <!-- 카메라/갤러리 카드 -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- 카메라 촬영 -->
+                <LinearLayout
+                    android:id="@+id/boxCamera"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
+                    android:background="@drawable/bg_card_white_8">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivCamera"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:scaleType="fitXY"
+                        app:shapeAppearanceOverlay="@style/cr8"
+                        android:src="@mipmap/ic_launcher"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="카메라 촬영"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="종이 영수증"
+                        android:textSize="12sp"
+                        android:textColor="#717182"/>
+                </LinearLayout>
+
+                <!-- 갤러리 선택 -->
+                <LinearLayout
+                    android:id="@+id/boxGallery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
+                    android:background="@drawable/bg_card_white_8">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivGallery"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:scaleType="fitXY"
+                        app:shapeAppearanceOverlay="@style/cr8"
+                        android:src="@mipmap/ic_launcher"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="갤러리 선택"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전자 영수증"
+                        android:textSize="12sp"
+                        android:textColor="#717182"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 탭 + 폼 박스 -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="16dp"
+                android:padding="25dp"
+                android:background="@drawable/bg_card_white_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 탭 바 (지출/수입) -->
+                <LinearLayout
+                    android:id="@+id/tabContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:padding="3dp"
+                    android:background="@drawable/bg_gray_14">
+
+                    <LinearLayout
+                        android:id="@+id/tabExpense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:gravity="center_horizontal"
+                        android:background="@drawable/bg_tab_selected"
+                        android:clickable="true"
+                        android:focusable="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="지출"
+                            android:textSize="14sp"
+                            android:textColor="#0A0A0A"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tabIncome"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:gravity="center_horizontal"
+                        android:background="@drawable/bg_tab_unselected"
+                        android:clickable="true"
+                        android:focusable="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="수입"
+                            android:textSize="14sp"
+                            android:textColor="#0A0A0A"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 금액 -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="금액"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+                    <EditText
+                        android:id="@+id/etAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_input_field"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:hint="10000"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:textColor="#717182"/>
+                </LinearLayout>
+
+                <!-- 카테고리 (RecyclerView로 교체) -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="카테고리"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+                </LinearLayout>
+
+                <!-- 설명 -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="설명"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+                    <EditText
+                        android:id="@+id/etMemo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_input_field"
+                        android:padding="12dp"
+                        android:hint="예: 편의점 간식"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLines="3"
+                        android:textColor="#717182"
+                        android:textSize="14sp"/>
+
+
+                </LinearLayout>
+
+                <!-- 날짜 -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="날짜"
+                        android:textSize="14sp"
+                        android:textColor="#0A0A0A"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_input_field"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="2025-02-09"
+                        android:textColor="#717182"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <!-- 내역 추가 버튼 -->
+                <LinearLayout
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/bg_button_primary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내역 추가"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
