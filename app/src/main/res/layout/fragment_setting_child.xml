@@ -22,6 +22,7 @@
             android:paddingBottom="8dp">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="뒤로가기"
@@ -89,7 +90,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_edit_profile_child"
+                    android:id="@+id/btn_edit_profile"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
@@ -192,7 +193,7 @@
                     android:textSize="15sp" />
 
                 <Button
-                    android:id="@+id/btn_save_savings_goal_child"
+                    android:id="@+id/btn_save_savings_goal"
                     android:layout_width="60dp"
                     android:layout_height="43dp"
                     android:backgroundTint="@color/black"
@@ -252,7 +253,7 @@
                     android:textSize="15sp" />
 
                 <Button
-                    android:id="@+id/btn_save_expense_limit_child"
+                    android:id="@+id/btn_save_expense_limit"
                     android:layout_width="60dp"
                     android:layout_height="43dp"
                     android:backgroundTint="@color/black"
@@ -324,7 +325,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/btn_add_category_child"
+                    android:id="@+id/btn_add_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="열기 →"
@@ -342,7 +343,7 @@
             android:paddingHorizontal="12dp">
 
             <Button
-                android:id="@+id/btn_logout_child"
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#D4183D"

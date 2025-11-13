@@ -8,8 +8,7 @@
     android:layout_marginStart="24dp"
     android:layout_marginEnd="24dp"
     android:background="@drawable/card_background_rounded"
-    android:padding="20dp"
-    >
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/tv_dialog_title"
@@ -97,6 +96,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sticker_pig"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -123,6 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sticker_bulb"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -149,6 +150,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sticker_heart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -175,6 +177,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sticker_trophy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -201,6 +204,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sticker_clap"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -240,7 +244,7 @@
         app:layout_constraintTop_toBottomOf="@id/grid_stickers" />
 
     <EditText
-        android:id="@+id/et_message"
+        android:id="@+id/et_msg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -260,13 +264,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:backgroundTint="@color/black"
-        android:padding="dp"
         android:text="스티커 선물하기"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_message" />
+        app:layout_constraintTop_toBottomOf="@id/et_msg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

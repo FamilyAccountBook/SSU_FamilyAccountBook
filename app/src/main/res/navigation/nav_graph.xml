@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.ui_familybook.SettingFragment"
+        android:name="com.example.ui_familybook.SettingParentFragment"
         android:label="설정"
         tools:layout="@layout/fragment_setting_child" />
 
