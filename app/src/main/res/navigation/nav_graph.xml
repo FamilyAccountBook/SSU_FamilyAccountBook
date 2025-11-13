@@ -27,6 +27,6 @@
         android:id="@+id/settingFragment"
         android:name="com.example.ui_familybook.SettingFragment"
         android:label="설정"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting_child" />
 
 </navigation>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/setting_frm_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- 뒤로가기 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="뒤로가기" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="뒤로가기"
+                android:textSize="16sp"
+                android:paddingStart="8dp" />
+        </LinearLayout>
+
+        <!-- 프로필 카드 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/setting_avatar_background"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="7dp"
+                    android:contentDescription="프로필 이미지"
+                    android:src="@drawable/ic_child_avatar" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="김부모"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="child@demo.com"
+                        android:textColor="#777"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="부모 계정"
+                        android:textColor="#999"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_edit_profile_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="️수정"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/grey_700"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 가족 추가 요청 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="1dp">
+
+            <TextView
+                android:text="가족 추가 요청"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="자녀 계정과 연결하세요"
+                android:textColor="#666"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:text="👪"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="가족 찾기" />
+
+                <TextView
+                    android:text="이메일로 가족 찾기"
+                    android:layout_marginStart="6dp"
+                    android:textSize="14sp"
+                    android:textColor="#555"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/btn_link_child"
+                    android:text="열기 →"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 스티커 목표 설정 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="스티커 목표 설정"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자녀의 스티커 목표를 설정하세요"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자녀 선택"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_child_selection"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/grey_100"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 목표"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/text_current_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:text="🎯 스티커를 모아서 용돈 올려받자! 🎯"
+                android:background="@color/grey_100"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_goal_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="목표 메시지"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <EditText
+                    android:id="@+id/edit_text_goal_message"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/grey_100"
+                    android:hint="예: 스티커를 모아서 용돈 올려받자!"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_save_goal_msg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_goal_msg" />
+
+                <Button
+                    android:id="@+id/btn_save_goal_msg"
+                    android:layout_width="60dp"
+                    android:layout_height="43dp"
+                    android:text="저장"
+                    android:textSize="15sp"
+                    app:cornerRadius="5dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:backgroundTint="@color/black"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/edit_text_goal_message"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <!-- 저축 목표 설정 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:text="저축 목표 설정"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/et_save_goal"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:hint="저축 목표를 설정해주세요"
+                    android:inputType="number"
+                    android:background="@color/grey_100"
+                    android:padding="10dp"
+                    android:textSize="15sp" />
+                <Button
+                    android:id="@+id/btn_save_savings_goal_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="43dp"
+                    android:text="저장"
+                    android:textSize="15sp"
+                    app:cornerRadius="5dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:backgroundTint="@color/black"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
+                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
+                    app:layout_constraintTop_toTopOf="@id/edit_text_goal_message"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"/>
+            </LinearLayout>
+
+            <TextView
+                android:text="10,000원을 저축할 거예요! 💪"
+                android:textColor="#777"
+                android:textSize="13sp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 지출 한도 설정 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:text="지출 한도 설정"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/et_spend_limit"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:hint="지출 한도를 설정해주세요"
+                    android:inputType="number"
+                    android:background="@color/grey_100"
+                    android:padding="10dp"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btn_save_expense_limit_parent"
+                    android:layout_width="60dp"
+                    android:layout_height="43dp"
+                    android:text="저장"
+                    android:textSize="15sp"
+                    app:cornerRadius="5dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:backgroundTint="@color/black"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
+                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
+                    app:layout_constraintTop_toTopOf="@id/edit_text_goal_message"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"/>
+            </LinearLayout>
+
+            <TextView
+                android:text="40,000원을 넘지 않도록 주의하세요! ⚠️"
+                android:textColor="#777"
+                android:textSize="13sp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 카테고리 관리 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:text="카테고리 관리"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="수입/지출 카테고리를 추가하거나 수정하세요"
+                android:textColor="#666"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:text="📂"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="카테고리 관리" />
+
+                <TextView
+                    android:text="카테고리 추가 및 관리"
+                    android:layout_marginStart="6dp"
+                    android:textSize="14sp"
+                    android:textColor="#555"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/btn_add_category_parent"
+                    android:text="열기 →"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+<!--        로그아웃-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@id/btn_logout_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#D4183D"
+                android:text="로그아웃"
+                app:cornerRadius="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

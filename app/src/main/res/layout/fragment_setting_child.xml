@@ -10,29 +10,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <!-- 뒤로가기 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_back"
-                android:contentDescription="뒤로가기" />
+                android:contentDescription="뒤로가기"
+                android:src="@drawable/ic_arrow_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
                 android:text="뒤로가기"
-                android:textSize="16sp"
-                android:paddingStart="8dp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- 프로필 카드 -->
@@ -88,12 +88,15 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btn_edit_profile_child"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="️ 수정"
-                    android:background="@drawable/card_background_rounded"
-                    android:padding="10dp"/>
+                    android:backgroundTint="@color/white"
+                    android:text="️수정"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/grey_700"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -101,55 +104,56 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/card_background_rounded"
-            android:padding="16dp"
             android:layout_marginBottom="12dp"
-            android:elevation="1dp">
+            android:background="@drawable/card_background_rounded"
+            android:elevation="1dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="가족 추가 요청"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="가족 추가 요청"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="부모 계정과 연결하세요"
                 android:textColor="#666"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="👪"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="가족 찾기" />
+                    android:contentDescription="가족 찾기"
+                    android:text="👪" />
 
                 <TextView
-                    android:text="이메일로 가족 찾기"
-                    android:layout_marginStart="6dp"
-                    android:textSize="14sp"
-                    android:textColor="#555"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="이메일로 가족 찾기"
+                    android:textColor="#555"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:text="열기 →"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="7dp"
+                    android:id="@+id/btn_link_parent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:text="열기 →"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -157,175 +161,193 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/card_background_rounded"
-            android:padding="16dp"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="저축 목표 설정"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="저축 목표 설정"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/et_save_goal"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="@color/grey_100"
                     android:hint="저축 목표를 설정해주세요"
                     android:inputType="number"
-                    android:background="@color/grey_100"
                     android:padding="10dp"
                     android:textSize="15sp" />
-                <ImageView
-                    android:src="@drawable/iv_setting_save"
+
+                <Button
+                    android:id="@+id/btn_save_savings_goal_child"
                     android:layout_width="60dp"
-                    android:layout_height="48dp"
+                    android:layout_height="43dp"
+                    android:backgroundTint="@color/black"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     android:text="저장"
-                    android:layout_marginStart="8dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    app:cornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"
+                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
+                    app:layout_constraintTop_toTopOf="@id/edit_text_goal_message" />
             </LinearLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="10,000원을 저축할 거예요! 💪"
                 android:textColor="#777"
-                android:textSize="13sp"
-                android:layout_marginTop="6dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <!-- 지출 한도 설정 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/card_background_rounded"
-            android:padding="16dp"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="지출 한도 설정"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="지출 한도 설정"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/et_spend_limit"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="@color/grey_100"
                     android:hint="지출 한도를 설정해주세요"
                     android:inputType="number"
-                    android:background="@color/grey_100"
                     android:padding="10dp"
                     android:textSize="15sp" />
 
-                <ImageView
-                    android:src="@drawable/iv_setting_save"
+                <Button
+                    android:id="@+id/btn_save_expense_limit_child"
                     android:layout_width="60dp"
-                    android:layout_height="48dp"
+                    android:layout_height="43dp"
+                    android:backgroundTint="@color/black"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     android:text="저장"
-                    android:layout_marginStart="8dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    app:cornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"
+                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
+                    app:layout_constraintTop_toTopOf="@id/edit_text_goal_message" />
             </LinearLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="40,000원을 넘지 않도록 주의하세요! ⚠️"
                 android:textColor="#777"
-                android:textSize="13sp"
-                android:layout_marginTop="6dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <!-- 카테고리 관리 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/card_background_rounded"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:text="카테고리 관리"
-                android:textStyle="bold"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="카테고리 관리"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="수입/지출 카테고리를 추가하거나 수정하세요"
                 android:textColor="#666"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="📂"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="카테고리 관리" />
+                    android:contentDescription="카테고리 관리"
+                    android:text="📂" />
 
                 <TextView
-                    android:text="카테고리 추가 및 관리"
-                    android:layout_marginStart="6dp"
-                    android:textSize="14sp"
-                    android:textColor="#555"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="카테고리 추가 및 관리"
+                    android:textColor="#555"
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/btn_add_category_child"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="열기 →"
                     android:textColor="#000"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
-<!--        로그아웃-->
+        <!--        로그아웃-->
         <LinearLayout
-            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
-            android:background="#D4183D"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
+            android:paddingHorizontal="12dp">
 
-            <TextView
+            <Button
+                android:id="@+id/btn_logout_child"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#D4183D"
                 android:text="로그아웃"
-                android:textSize="16dp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:cornerRadius="5dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
