@@ -32,6 +32,14 @@
             android:textColor="#717182"
             android:textSize="16sp" />
     </LinearLayout>
+    <!-- Chart area -->
+    <FrameLayout
+        android:id="@+id/dailyTrendChartSpace"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:background="@drawable/bg_round14_stroke_none" />
 
     <!-- Legend -->
     <LinearLayout
@@ -87,14 +95,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Chart area -->
-    <FrameLayout
-        android:id="@+id/dailyTrendChartSpace"
-        android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        android:background="@drawable/bg_round14_stroke_none" />
 
 </LinearLayout>
