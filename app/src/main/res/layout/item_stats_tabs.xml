@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:background="@drawable/bg_round14_gray_200">
+
+    <TextView
+        android:id="@+id/tabMine"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/bg_round14_white"
+        android:text="나의 통계"
+        android:textColor="#0A0A0A"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tabChild"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/bg_round14_stroke_none"
+        android:text="자녀 통계"
+        android:textColor="#0A0A0A"
+        android:textSize="14sp" />
+
+</LinearLayout>
