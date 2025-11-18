@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F4F6">
+    android:background="#FFF5FA">
 
     <!-- 카드 전체 -->
     <androidx.cardview.widget.CardView
@@ -55,23 +55,31 @@
             <LinearLayout
                 android:id="@+id/tabContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="#F3F3F3"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:weightSum="2"
+                android:padding="3dp">">
 
-                <Button
-                    android:id="@+id/btnTabLogin"
+                <TextView
+                    android:id="@+id/tab_login"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="로그인"/>
 
-                <Button
-                    android:id="@+id/btnTabSignup"
+                <TextView
+                    android:id="@+id/tab_register"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="회원가입"/>
+                    android:gravity="center"
+                    android:text="회원가입"
+                    android:textStyle="bold"
+                    android:background="@android:color/white" />
+
             </LinearLayout>
 
             <!-- 로그인 폼 -->
