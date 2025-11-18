@@ -107,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:background="@drawable/card_background_rounded"
-            android:elevation="1dp"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -204,7 +203,6 @@
                     android:textSize="15sp"
                     app:cornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"
-                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
                     app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
                     app:layout_constraintTop_toTopOf="@id/edit_text_goal_message" />
             </LinearLayout>
@@ -264,7 +262,6 @@
                     android:textSize="15sp"
                     app:cornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="@id/edit_text_goal_message"
-                    app:layout_constraintEnd_toEndOf="@id/setting_frm_parent"
                     app:layout_constraintStart_toEndOf="@id/edit_text_goal_message"
                     app:layout_constraintTop_toTopOf="@id/edit_text_goal_message" />
             </LinearLayout>

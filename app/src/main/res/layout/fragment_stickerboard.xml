@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_background_rounded"
+                android:elevation="1dp"
                 android:padding="20dp">
 
                 <ImageView
@@ -128,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:elevation="1dp"
                     android:clipToPadding="false"
                     android:padding="16dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

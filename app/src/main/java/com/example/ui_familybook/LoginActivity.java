@@ -34,17 +34,17 @@ public class LoginActivity extends AppCompatActivity {
             layoutLogin.setVisibility(View.GONE);
             layoutSignup.setVisibility(View.VISIBLE);
         });
-
-        btnLogin.setOnClickListener(v -> {
-            // 실제로는 로그인 검증 후
-            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
-            startActivity(intent);
-        });
-
-        btnSignup.setOnClickListener(v -> {
-            // 가입 처리 후 홈으로
-            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
-            startActivity(intent);
-        });
+//
+//        btnLogin.setOnClickListener(v -> {
+//            // 실제로는 로그인 검증 후
+//            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        btnSignup.setOnClickListener(v -> {
+//            // 가입 처리 후 홈으로
+//            Intent intent = new Intent(LoginActivity.this, ParentHomeActivity.class);
+//            startActivity(intent);
+//        });
     }
 }
