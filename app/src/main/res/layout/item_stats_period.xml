@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_round14_white_stroke_1a"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/tv_period_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기간 선택"
+        android:textColor="#0A0A0A"
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_period_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="13dp"
+        android:paddingEnd="13dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/bg_round10"
+        android:backgroundTint="@color/grey_100"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_period_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2025년 11월"
+            android:textColor="#0A0A0A"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_calendar"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_drop_down" />
+    </LinearLayout>
+
+</LinearLayout>
