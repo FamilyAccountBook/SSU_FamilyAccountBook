@@ -2,15 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF5FA"
-    tools:context=".fragments.auth.LoginFragment">
+    android:background="#FFF5FA">
 
-    <!-- 카드 전체 -->
+    <!-- 카드 전체 (id: cardLogin -> card_login) -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardLogin"
+        android:id="@+id/card_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
@@ -27,9 +25,9 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- 헤더: 아이콘 + 타이틀 + 설명 -->
+            <!-- 헤더: 아이콘 + 타이틀 + 설명 (id: tvEmoji -> tv_emoji) -->
             <TextView
-                android:id="@+id/tvEmoji"
+                android:id="@+id/tv_emoji"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="🐱"
@@ -53,16 +51,16 @@
                 android:layout_marginTop="4dp"
                 android:layout_gravity="center_horizontal"/>
 
-            <!-- 탭 (로그인 / 회원가입) -->
             <LinearLayout
-                android:id="@+id/tabContainer"
+                android:id="@+id/tab_container"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
-                android:background="#F3F3F3"
+                android:background="@drawable/card_background_rounded"
+                android:backgroundTint="@color/grey_100"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:padding="3dp">">
+                android:padding="3dp">
 
                 <TextView
                     android:id="@+id/tab_login"
@@ -70,6 +68,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:background="@drawable/card_background_rounded"
                     android:text="로그인"/>
 
                 <TextView
@@ -79,14 +78,13 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="회원가입"
-                    android:textStyle="bold"
-                    android:background="@android:color/white" />
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
-            <!-- 로그인 폼 -->
+            <!-- 로그인 폼 (id: layoutLogin -> layout_login) -->
             <LinearLayout
-                android:id="@+id/layoutLogin"
+                android:id="@+id/layout_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -98,11 +96,12 @@
                     android:text="이메일"
                     android:textSize="13sp"/>
 
+                <!-- (id: etEmail -> et_email), (배경 수정) -->
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@android:drawable/edit_text"
+                    android:background="@color/grey_100"
                     android:hint="email@example.com"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="12dp"
@@ -115,27 +114,30 @@
                     android:layout_marginTop="14dp"
                     android:textSize="13sp"/>
 
+                <!-- (id: etPassword -> et_password), (배경 수정) -->
                 <EditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@android:drawable/edit_text"
+                    android:background="@color/grey_100"
                     android:hint="••••••••"
                     android:inputType="textPassword"
                     android:paddingHorizontal="12dp"
                     android:layout_marginTop="6dp"/>
 
+                <!-- (id: btnLogin -> btn_login) -->
                 <Button
-                    android:id="@+id/btnLogin"
+                    android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="로그인"
+                    android:backgroundTint="@color/black"
                     android:layout_marginTop="16dp"/>
             </LinearLayout>
 
-            <!-- 회원가입 폼 (초기엔 GONE) -->
+            <!-- 회원가입 폼 (id: layoutSignup -> layout_signup) -->
             <LinearLayout
-                android:id="@+id/layoutSignup"
+                android:id="@+id/layout_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -148,11 +150,12 @@
                     android:text="이름"
                     android:textSize="13sp"/>
 
+                <!-- (id: etName -> et_name), (배경 수정) -->
                 <EditText
-                    android:id="@+id/etName"
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@android:drawable/edit_text"
+                    android:background="@color/grey_100"
                     android:hint="홍길동"
                     android:paddingHorizontal="12dp"
                     android:layout_marginTop="6dp"/>
@@ -164,11 +167,12 @@
                     android:layout_marginTop="14dp"
                     android:textSize="13sp"/>
 
+                <!-- (id: etSignupEmail -> et_signup_email), (배경 수정) -->
                 <EditText
-                    android:id="@+id/etSignupEmail"
+                    android:id="@+id/et_signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@android:drawable/edit_text"
+                    android:background="@color/grey_100"
                     android:hint="email@example.com"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="12dp"
@@ -181,18 +185,20 @@
                     android:layout_marginTop="14dp"
                     android:textSize="13sp"/>
 
+                <!-- (id: etSignupPassword -> et_signup_password), (배경 수정) -->
                 <EditText
-                    android:id="@+id/etSignupPassword"
+                    android:id="@+id/et_signup_password"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@android:drawable/edit_text"
+                    android:background="@color/grey_100"
                     android:hint="••••••••"
                     android:inputType="textPassword"
                     android:paddingHorizontal="12dp"
                     android:layout_marginTop="6dp"/>
 
+                <!-- (id: btnSignup -> btn_signup) -->
                 <Button
-                    android:id="@+id/btnSignup"
+                    android:id="@+id/btn_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="가입하기"

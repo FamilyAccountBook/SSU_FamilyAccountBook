@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF5FA">
+    android:background="backgro">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:background="#F3F3F3"
+            android:background="@drawable/card_background_rounded"
+            android:backgroundTint="@color/grey_100"
             android:orientation="horizontal"
             android:weightSum="2"
             android:padding="3dp">
@@ -62,7 +63,7 @@
                 android:gravity="center"
                 android:text="회원가입"
                 android:textStyle="bold"
-                android:background="@android:color/white" />
+                android:background="@drawable/card_background_rounded" />
         </LinearLayout>
 
         <!-- 선택 카드들 -->
@@ -79,7 +80,7 @@
                 android:layout_height="110dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="#F6F6F6"
+                android:background="@drawable/sticker_item_background"
                 android:gravity="center"
                 android:layout_marginEnd="8dp"
                 android:padding="6dp">
@@ -87,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="👨‍👩‍👧"
+                    android:text="👨‍🧑"
                     android:textSize="28sp" />
 
                 <TextView
@@ -108,7 +109,7 @@
                 android:layout_height="110dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="#F6F6F6"
+                android:background="@drawable/sticker_item_background"
                 android:gravity="center"
                 android:layout_marginStart="8dp"
                 android:padding="6dp">
