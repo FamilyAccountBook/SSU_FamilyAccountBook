@@ -68,7 +68,7 @@
 ### 1.2 프로젝트 구조
 
 ```
-app/src/main/java/com/example/familybudget/
+app/src/main/java/com/example/ui_familybook;
 ├── MainActivity.java                    # 단일 Activity
 ├── models/                              # 데이터 모델
 │   ├── User.java
@@ -78,7 +78,8 @@ app/src/main/java/com/example/familybudget/
 ├── fragments/                           # 화면 Fragment
 │   ├── auth/
 │   │   ├── LoginFragment.java
-│   │   └── SignupFragment.java
+│   │   └── RegisterSelectFragment.java
+│   │   └── RegisterFormFragment.java
 │   ├── parent/
 │   │   ├── ParentHomeFragment.java
 │   │   ├── ParentStatisticsFragment.java
@@ -153,25 +154,31 @@ app/src/main/java/com/example/familybudget/
 ### 3.1 앱 시작 플로우
 
 ```
-앱 실행
-   ↓
-MainActivity.onCreate()
-   ↓
-Firebase Auth 상태 확인
-   ↓
-┌──────────────┬──────────────┐
-│  로그인 상태  │ 비로그인 상태 │
-└──────────────┴──────────────┘
-       ↓                ↓
-  사용자 역할 로드   LoginFragment
-       ↓                ↓
- 역할에 따라 분기    회원가입 가능
-       ↓
-┌──────────┬──────────┐
-│  부모     │   자녀    │
-└──────────┴──────────┘
-     ↓          ↓
-ParentHome  ChildHome
+[APP START]
+     │
+     ▼
+MainActivity (Firebase Auth Check)
+     │
+     ├── (Logged Out) ──────────────────────────┐
+     │                                          │
+     │ (Logged In)                              ▼
+     ▼                                    LoginFragment
+Load User Role (Firestore)                      │
+     │   ▲                                      │
+     │   │                                      ▼
+     │   │                            RegisterSelectFragment
+     │   │                            (Select Parent/Child)
+     │   │                                      │
+     │   │                                      ▼
+     │   │                            RegisterFormFragment
+     │   └─ (Auto Login) ──────────── (Create Auth & Save DB)
+     │
+     ▼
+Check Role
+     │
+     ├── [PARENT] ──→ ParentHomeFragment
+     │
+     └── [CHILD]  ──→ ChildHomeFragment
 ```
 
 ### 3.2 로그인 처리 절차
@@ -180,7 +187,7 @@ ParentHome  ChildHome
 1. 이메일/비밀번호 입력 받기
 2. ValidationUtils로 입력값 검증
 3. Firebase Authentication 호출
-4. 성공 시 MainActivity로 이동
+4. 성공 시 MainActivity의 리스너가 감지하여 역할(Role) 확인 후 홈 화면으로 이동
 5. 실패 시 에러 메시지 표시
 
 **검증 항목**
@@ -190,15 +197,20 @@ ParentHome  ChildHome
 
 ### 3.3 회원가입 처리 절차
 
-**SignupFragment 처리 흐름**
-1. 역할 선택 (부모/자녀) - ChipGroup 사용
+**RegisterSelect 처리 흐름**
+1. 역할 선택 (부모/자녀) - ChipGroup 또는 RadioButton 사용
+2. '다음' 버튼 클릭 시 Bundle에 선택된 역할(Role) 정보 담기
+3. RegisterFormFragment로 트랜잭션 이동
+
+**RegisterForm 처리 흐름**
+1. Bundle에서 이전 화면에서 넘겨준 역할(Role) 데이터 수신
 2. 이름, 이메일, 비밀번호 입력
 3. 입력값 검증
 4. Firebase Auth에 계정 생성
-5. Firestore에 사용자 문서 생성
+5. 성공시 Firestore에 사용자 문서 생성
     - users/{uid} 경로에 저장
-    - 역할, 이름, 이메일, 초기 설정값 포함
-6. 로그인 화면으로 이동
+    - 역할, 이름, 이메일, 전달받은 역할 초기 데이터 저장
+6. 저장 완료 시 MainActivity가 이를 감지하여 즉시 홈 화면으로 이동 (자동 로그인
 
 **Firestore 사용자 문서 초기값**
 ```
