@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="월간 저축"
@@ -23,7 +23,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/tvSub"
+            android:id="@+id/tv_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="저축 · 2025년 10월 19일"
@@ -33,7 +33,7 @@
 
     <!-- 오른쪽: 금액 -->
     <TextView
-        android:id="@+id/tvAmount"
+        android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-200,000원"

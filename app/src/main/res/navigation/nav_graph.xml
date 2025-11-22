@@ -21,7 +21,7 @@
         android:id="@+id/statsFragment"
         android:name="com.example.ui_familybook.StatsFragment"
         android:label="통계"
-        tools:layout="@layout/fragment_stats" />
+        tools:layout="@layout/fragment_statistics" />
 
     <fragment
         android:id="@+id/settingFragment"
