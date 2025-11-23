@@ -30,25 +30,22 @@ public class RegisterSelectFragment extends Fragment {
         tabLogin.setOnClickListener(v ->
                 requireActivity().getOnBackPressedDispatcher().onBackPressed()
         );
-
-        cardParent.setOnClickListener(v -> {
-            Fragment next = RegisterFormFragment.newInstance("부모님");
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main, next)
-                    .addToBackStack(null)
-                    .commit();
+        tabRegister.setOnClickListener(v -> {
+            // Already on register tab; no-op for now.
         });
 
-        cardChild.setOnClickListener(v -> {
-            Fragment next = RegisterFormFragment.newInstance("자녀");
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main, next)
-                    .addToBackStack(null)
-                    .commit();
-        });
+        cardParent.setOnClickListener(v -> navigateToForm("parent"));
+        cardChild.setOnClickListener(v -> navigateToForm("child"));
 
         return view;
+    }
+
+    private void navigateToForm(String role) {
+        Fragment next = RegisterFormFragment.newInstance(role);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main, next)
+                .addToBackStack(null)
+                .commit();
     }
 }

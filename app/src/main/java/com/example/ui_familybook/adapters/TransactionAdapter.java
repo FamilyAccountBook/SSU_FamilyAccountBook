@@ -26,7 +26,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.activity_transaction_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_transaction, parent, false);
         return new ViewHolder(v);
     }
 
@@ -37,7 +37,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.tvSub.setText(item.sub);
         holder.tvAmount.setText(item.amount);
 
-        // 수입/지출에 따라 색 다르게
+        // 색상으로 입금/지출 표시 구분
         if (item.isIncome) {
             holder.tvAmount.setTextColor(0xFF1D8848); // 초록
         } else {

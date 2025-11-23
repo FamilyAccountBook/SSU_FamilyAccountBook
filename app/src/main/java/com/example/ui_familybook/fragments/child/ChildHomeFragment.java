@@ -1,66 +1,63 @@
 package com.example.ui_familybook.fragments.child;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ui_familybook.R;
+import com.example.ui_familybook.adapters.TransactionAdapter;
+import com.example.ui_familybook.adapters.TransactionItem;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChildHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChildHomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private final List<TransactionItem> transactions = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ChildHomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChildHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChildHomeFragment newInstance(String param1, String param2) {
-        ChildHomeFragment fragment = new ChildHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_child_home, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_transactions);
+        TextView tvBalance = view.findViewById(R.id.tv_balance);
+        TextView tvIncome = view.findViewById(R.id.tv_income);
+        TextView tvExpense = view.findViewById(R.id.tv_expense);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        seedData();
+        recyclerView.setAdapter(new TransactionAdapter(requireContext(), transactions));
+
+        if (tvBalance != null) {
+            tvBalance.setText("+120,000원");
         }
+        if (tvIncome != null) {
+            tvIncome.setText("+180,000원");
+        }
+        if (tvExpense != null) {
+            tvExpense.setText("-60,000원");
+        }
+
+        return view;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_child_home, container, false);
+    private void seedData() {
+        // TODO: Firestore transactions 컬렉션에서 자녀 거래 내역 조회로 교체
+        transactions.clear();
+        transactions.add(new TransactionItem("Allowance", "Weekly · 2025-10-19", "+20,000원", true));
+        transactions.add(new TransactionItem("Snacks", "Food · 2025-10-12", "-5,000원", false));
+        transactions.add(new TransactionItem("Books", "Study · 2025-10-08", "-12,000원", false));
+        transactions.add(new TransactionItem("Gift", "Reward · 2025-10-01", "+50,000원", true));
     }
 }

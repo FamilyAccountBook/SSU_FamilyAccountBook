@@ -1,32 +1,5 @@
 # SSU_FamilyAccountBook
 
-## 🔖 커밋 컨벤션
-커밋에 해당하는 커밋 메시지 쓰기 (예: feat. 이슈내용 )
-
-
-| Message  | 설명                                              |
-| :------: | :------------------------------------------------ |
-|   feat   | 새로운 기능 추가                            |
-|  fix   | 버그 수정 |
-|  refactor  | 코드 리펙토링 |
-| comment | 주석 추가 및 변경                                     |
-|  rename   | 파일 혹은 폴더명 수정                |
-|  remove   | 파일 혹은 폴더 삭제                |
-|  chore   | 기타 변경사항                |
-
-
-
-## branch 규칙
-타입/#이슈번호-간단한 설명
-(예: feat/#1-User-도메인-설계)
-
-## 
-
-이미지뷰 iv_
-버튼 btn_
-텍스트뷰 tv_
-아이콘 ic_
-
 # 우리 가족 가계부 - Technical PRD
 
 > **자녀 금융교육을 위한 가족 가계부 서비스**  
@@ -179,6 +152,8 @@ Check Role
      ├── [PARENT] ──→ ParentHomeFragment
      │
      └── [CHILD]  ──→ ChildHomeFragment
+     
+     
 ```
 
 ### 3.2 로그인 처리 절차
