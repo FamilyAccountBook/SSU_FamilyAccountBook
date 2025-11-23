@@ -7,7 +7,7 @@
     android:background="@drawable/bg_gradient">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_login"
+        android:id="@+id/card_signup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
@@ -67,10 +67,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:background="@drawable/card_background_rounded"
-                    android:backgroundTint="@color/white"
-                    android:text="로그인"
-                    android:textStyle="bold"/>
+                    android:text="로그인"/>
 
                 <TextView
                     android:id="@+id/tab_register"
@@ -78,11 +75,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="회원가입"/>
+                    android:background="@drawable/card_background_rounded"
+                    android:backgroundTint="@color/white"
+                    android:text="회원가입"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
-            <!-- 로그인 폼 -->
+            <!-- 회원가입 폼 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,11 +92,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이메일"
+                    android:text="이름"
                     android:textSize="13sp"/>
 
                 <EditText
-                    android:id="@+id/et_email"
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/grey_100"
+                    android:hint="홍길동"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이메일"
+                    android:layout_marginTop="14dp"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/grey_100"
@@ -113,7 +129,7 @@
                     android:textSize="13sp"/>
 
                 <EditText
-                    android:id="@+id/et_password"
+                    android:id="@+id/et_signup_password"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/grey_100"
@@ -123,10 +139,10 @@
                     android:layout_marginTop="6dp"/>
 
                 <Button
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="로그인"
+                    android:text="가입하기"
                     android:backgroundTint="@color/black"
                     android:layout_marginTop="16dp"/>
             </LinearLayout>
