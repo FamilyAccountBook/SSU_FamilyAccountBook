@@ -10,23 +10,31 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.ui_familybook.databinding.DialogGiveStickerBinding;
-// ★ 변경: Firestore 관련 import 삭제하고 Realtime Database import 추가
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class StickerGiveFragment extends DialogFragment {
 
     private DialogGiveStickerBinding binding;
-    private int selectedStickerIndex = -1; // 선택된 스티커 번호
-
-    // ★ 1. Realtime Database 인스턴스로 변경
+    private int selectedStickerIndex = -1;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+    // ★ 1. 데이터를 전달할 인터페이스 정의
+    public interface OnStickerSentListener {
+        void onStickerSent(int index, String message);
+    }
+
+    // ★ 2. 리스너 변수 선언
+    private OnStickerSentListener listener;
+
+    // ★ 3. 외부(MainActivity)에서 리스너를 연결해주는 메서드 (이름을 setOn...으로 짓는 것이 관례입니다)
+    public void setOnStickerSentListener(OnStickerSentListener listener) {
+        this.listener = listener;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogGiveStickerBinding.inflate(inflater, container, false);
-
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
@@ -39,54 +47,47 @@ public class StickerGiveFragment extends DialogFragment {
 
         binding.ivClose.setOnClickListener(v -> dismiss());
 
-        // 스티커 선택 로직
         for (int i = 0; i < binding.gridStickers.getChildCount(); i++) {
             final int index = i;
             View child = binding.gridStickers.getChildAt(i);
-
             child.setOnClickListener(v -> {
                 selectedStickerIndex = index;
                 updateStickerSelection();
             });
         }
 
-        // 선물하기 버튼 클릭
         binding.btnSendSticker.setOnClickListener(v -> {
             if (selectedStickerIndex == -1) {
                 Toast.makeText(getContext(), "스티커를 선택해주세요!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             String message = binding.etMsg.getText().toString();
-            if (message.isEmpty()) {
-                message = "오늘 정말 잘했어요!";
-            }
+            if (message.isEmpty()) message = "오늘 정말 잘했어요!";
 
             sendStickerToFirebase(selectedStickerIndex, message);
         });
     }
 
-    // ★ 3. Realtime Database에 데이터 저장하는 함수
     private void sendStickerToFirebase(int index, String message) {
         String targetChildUid = "child_user_1";
-
         String emoji = getEmojiForIndex(index);
-
-        // ★ 변경: Timestamp 객체 대신 long 타입의 시간값 사용 (정렬 및 호환성 위함)
         long timestamp = System.currentTimeMillis();
 
-        // Sticker 객체 생성 (Sticker 클래스 생성자도 long 타입을 받도록 수정되어야 함)
         Sticker newSticker = new Sticker(index, emoji, message, timestamp);
 
-        // ★ 변경: Realtime Database 저장 로직
-        // push()는 랜덤 키(ID)를 생성합니다. (Firestore의 .add()와 유사)
         db.getReference("users")
                 .child(targetChildUid)
                 .child("stickers")
-                .push() // 고유 ID 생성
-                .setValue(newSticker) // 값 저장
+                .push()
+                .setValue(newSticker)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "스티커를 선물했습니다! 🎁", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "스티커 선물 완료!", Toast.LENGTH_SHORT).show(); // 중복 토스트 방지 위해 주석 처리 가능
+
+                    // ★ 4. 전송 성공 시, 연결된 리스너(MainActivity)에게 알림
+                    if (listener != null) {
+                        listener.onStickerSent(index, message);
+                    }
+
                     dismiss();
                 })
                 .addOnFailureListener(e -> {
@@ -94,6 +95,7 @@ public class StickerGiveFragment extends DialogFragment {
                 });
     }
 
+    // ... 기존 헬퍼 메서드들 (getEmojiForIndex, updateStickerSelection) ...
     private String getEmojiForIndex(int index) {
         switch (index) {
             case 0: return "⭐";
@@ -109,7 +111,6 @@ public class StickerGiveFragment extends DialogFragment {
     private void updateStickerSelection() {
         for (int i = 0; i < binding.gridStickers.getChildCount(); i++) {
             View child = binding.gridStickers.getChildAt(i);
-
             if (i == selectedStickerIndex) {
                 child.setBackgroundResource(R.drawable.sticker_item_background);
                 child.setBackgroundTintList(requireContext().getColorStateList(R.color.light_pink_background));

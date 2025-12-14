@@ -1,4 +1,4 @@
-package com.example.ui_familybook; // 패키지명 확인
+package com.example.ui_familybook;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,20 +12,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 테스트 버튼 찾기
         Button btnTest = findViewById(R.id.btn_test_sticker);
 
-        // 버튼 클릭 시 다이얼로그 띄우기
         btnTest.setOnClickListener(v -> {
-
-            // 1. 다이얼로그 객체 생성
             StickerGiveFragment dialog = new StickerGiveFragment();
 
-            // 2. 리스너 연결 (결과를 받아서 Toast 띄우기)
-            dialog.On((index, message) -> {
+            // ★ 수정됨: .On(...) -> .setOnStickerSentListener(...)
+            dialog.setOnStickerSentListener((index, message) -> {
 
                 String stickerName = "";
-                // 인덱스에 따른 이름 변환 (테스트용)
                 switch (index) {
                     case 0: stickerName = "잘했어요(별)"; break;
                     case 1: stickerName = "절약왕(돼지)"; break;
@@ -41,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             });
 
-            // 3. 화면에 보여주기
             dialog.show(getSupportFragmentManager(), "TestStickerDialog");
         });
     }
