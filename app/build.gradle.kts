@@ -49,4 +49,7 @@ dependencies {
     val navVersion = "2.9.6"
     implementation("androidx.navigation:navigation-fragment-ktx:${navVersion}")
     implementation("androidx.navigation:navigation-ui-ktx:${navVersion}")
+
+    // 폭죽 라이브러리 사용
+    implementation("nl.dionsegijn:konfetti-xml:2.0.4")
 }

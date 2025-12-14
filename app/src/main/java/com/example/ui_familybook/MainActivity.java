@@ -1,49 +1,48 @@
-package com.example.ui_familybook;
+package com.example.ui_familybook; // 패키지명 확인
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.ui_familybook.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        // 테스트 버튼 찾기
+        Button btnTest = findViewById(R.id.btn_test_sticker);
 
-        setContentView(binding.getRoot());
+        // 버튼 클릭 시 다이얼로그 띄우기
+        btnTest.setOnClickListener(v -> {
 
-        BottomNavigationView bottomNav = binding.bottomNav;
+            // 1. 다이얼로그 객체 생성
+            StickerGiveFragment dialog = new StickerGiveFragment();
 
-        NavHostFragment navHostFragment =(NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.main_frm);
+            // 2. 리스너 연결 (결과를 받아서 Toast 띄우기)
+            dialog.On((index, message) -> {
 
-        // 실제 화면 이동(navigation)을 제어하는 'NavController'
-        NavController navController= navHostFragment.getNavController();
+                String stickerName = "";
+                // 인덱스에 따른 이름 변환 (테스트용)
+                switch (index) {
+                    case 0: stickerName = "잘했어요(별)"; break;
+                    case 1: stickerName = "절약왕(돼지)"; break;
+                    case 2: stickerName = "똑똑해요(전구)"; break;
+                    case 3: stickerName = "사랑해요(하트)"; break;
+                    case 4: stickerName = "최고예요(트로피)"; break;
+                    case 5: stickerName = "박수!(박수)"; break;
+                }
 
-        // 'NavigationUI' 사용해 'bottomNav'와 'navController'를 연결
-        NavigationUI.setupWithNavController(bottomNav, navController);
+                // 결과 토스트 메시지 출력
+                Toast.makeText(MainActivity.this,
+                        stickerName + " 선택됨\n메시지: " + message,
+                        Toast.LENGTH_LONG).show();
+            });
 
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+            // 3. 화면에 보여주기
+            dialog.show(getSupportFragmentManager(), "TestStickerDialog");
         });
     }
 }

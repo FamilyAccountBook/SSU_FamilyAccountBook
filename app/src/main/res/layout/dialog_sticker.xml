@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="김부모 2025. 10. 8.에 주셨어요"
+        android:text="2025. 10. 8"
         android:textColor="@color/grey_600"
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@id/message_box"
