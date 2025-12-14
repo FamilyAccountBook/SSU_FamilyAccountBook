@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ui_familybook.databinding.FragmentStickerboardBinding;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import nl.dionsegijn.konfetti.core.Party;
@@ -37,7 +41,9 @@ public class StickerBoardFragment extends Fragment {
     private FragmentStickerboardBinding binding;
     private StickerAdapter adapter;
     private static final int TOTAL_STICKERS = 30;
-    private int currentStickerCount = 0;
+
+    // 앱 실행 시 첫 로딩인지 확인하는 플래그 (애니메이션 방지용)
+    private boolean isFirstLoad = true;
 
     // Firebase 관련 변수
     private FirebaseFirestore db;
@@ -57,12 +63,23 @@ public class StickerBoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = FirebaseFirestore.getInstance(); // DB 초기화
+        db = FirebaseFirestore.getInstance();
 
         setupRecyclerView();
         setupClickListeners();
 
         observeStickerUpdates();
+    }
+
+    // ★ 중요: 프래그먼트 종료 시 리스너 해제 (메모리 누수/크래시 방지)
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (stickerListener != null) {
+            stickerListener.remove();
+            stickerListener = null;
+        }
+        binding = null;
     }
 
     private void setupRecyclerView() {
@@ -82,60 +99,63 @@ public class StickerBoardFragment extends Fragment {
         stickerListener = db.collection("users")
                 .document(targetChildUid)
                 .collection("stickers")
-                .orderBy("timestamp", Query.Direction.ASCENDING) // 시간순 정렬
+                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
                         return;
                     }
 
                     if (snapshots != null) {
-                        // 초기 데이터 로딩인지 확인 (앱 켜자마자 애니메이션 방지용)
-                        // snapshots.size()가 현재 카운트보다 크면 새로운게 들어온 것
-
-                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                            // 새로운 스티커가 "추가(ADDED)" 되었을 때만 실행
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-                                // 현재 화면에 표시된 것보다 더 많은 데이터가 들어왔을 때만 추가 (중복 방지)
-                                if (currentStickerCount < snapshots.size()) {
-                                    addStickerWithAnimation();
-                                }
-                            }
+                        // 1. DB 데이터를 Sticker 객체 리스트로 변환
+                        List<Sticker> newStickerList = new ArrayList<>();
+                        for (com.google.firebase.firestore.DocumentSnapshot doc : snapshots.getDocuments()) {
+                            // Sticker 클래스가 있어야 하며, 빈 생성자가 필수입니다.
+                            Sticker sticker = doc.toObject(Sticker.class);
+                            newStickerList.add(sticker);
                         }
 
-                        // 데이터 개수 동기화 (초기 로딩 시 애니메이션 없이 UI만 갱신)
-                        if (currentStickerCount == 0 && !snapshots.isEmpty()) {
-                            currentStickerCount = snapshots.size();
-                            updateUIWithoutAnimation();
+                        // 이전 개수와 새 개수 비교
+                        int oldCount = adapter.getFilledCount();
+                        int newCount = newStickerList.size();
+
+                        // 2. 어댑터에 데이터 전달 (화면 갱신)
+                        adapter.submitList(newStickerList);
+
+                        // 3. UI 텍스트/프로그레스바 갱신
+                        updateProgressUI(newCount);
+
+                        // 4. 애니메이션 처리 로직
+                        if (isFirstLoad) {
+                            // 첫 로딩때는 애니메이션 실행 안 함
+                            isFirstLoad = false;
+                        } else {
+                            // 실시간 추가: 개수가 늘어났을 때만 마지막 아이템 애니메이션
+                            if (newCount > oldCount) {
+                                binding.stickerRecyclerView.post(() -> {
+                                    animateStickerAtPosition(newCount - 1);
+                                });
+                            }
                         }
                     }
                 });
     }
 
-    // 애니메이션과 함께 스티커 추가 (실시간 수신 시 호출)
-    private void addStickerWithAnimation() {
-        if (currentStickerCount >= TOTAL_STICKERS) return;
+    // UI 업데이트 통합 메서드
+    private void updateProgressUI(int currentCount) {
+        // 텍스트
+        binding.tvProgressCount.setText(currentCount + "/30");
 
-        int position = currentStickerCount;
-        currentStickerCount++;
+        // 프로그레스바
+        int progress = (int) ((currentCount / 30f) * 100);
+        binding.progressBar.setProgress(progress);
 
-        // 어댑터 업데이트
-        adapter.updateStickers(currentStickerCount);
-        updateProgressText();
-        updateProgressBar(currentStickerCount);
-        updateInfoMessage(currentStickerCount);
-
-        // 애니메이션 실행
-        binding.stickerRecyclerView.post(() -> {
-            animateStickerAtPosition(position);
-        });
-    }
-
-    // 애니메이션 없이 UI만 갱신 (초기 로딩용)
-    private void updateUIWithoutAnimation() {
-        adapter.updateStickers(currentStickerCount);
-        updateProgressText();
-        updateProgressBar(currentStickerCount);
-        updateInfoMessage(currentStickerCount);
+        // 안내 메시지
+        int remaining = TOTAL_STICKERS - currentCount;
+        if (remaining > 0) {
+            binding.tvInfoMessage.setText(remaining + "개만 더 모으면 스티커판을 채울 수 있어요!");
+        } else {
+            binding.tvInfoMessage.setText("스티커판을 완성했어요! 🎉");
+        }
     }
 
     private void animateStickerAtPosition(int position) {
@@ -187,6 +207,7 @@ public class StickerBoardFragment extends Fragment {
     }
 
     private void checkCompletion(int position) {
+        // index는 0부터 시작하므로 +1 해서 비교
         if (position + 1 == TOTAL_STICKERS) {
             binding.stickerRecyclerView.postDelayed(() -> {
                 showCompletionAnimation();
@@ -233,29 +254,32 @@ public class StickerBoardFragment extends Fragment {
                 .withEndAction(() -> {
                     binding.completionMessage.setVisibility(View.GONE);
 
-                    // DB 초기화 로직 필요 (예: stickers 컬렉션 비우기)
-                    // 여기서는 UI만 초기화
-                    currentStickerCount = 0;
-                    updateUIWithoutAnimation();
+                    // ★ DB 데이터 삭제 로직 실행
+                    clearStickersInDb();
                 })
                 .start();
     }
 
-    private void updateProgressText() {
-        binding.tvProgressCount.setText(currentStickerCount + "/30");
-    }
+    // ★ DB의 스티커 데이터를 모두 지우는 메서드
+    private void clearStickersInDb() {
+        db.collection("users")
+                .document(targetChildUid)
+                .collection("stickers")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    // Batch(일괄 처리)를 사용하여 한 번에 삭제
+                    WriteBatch batch = db.batch();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        batch.delete(document.getReference());
+                    }
 
-    private void updateProgressBar(int current) {
-        int progress = (int) ((current / 30f) * 100);
-        binding.progressBar.setProgress(progress);
-    }
-
-    private void updateInfoMessage(int current) {
-        int remaining = TOTAL_STICKERS - current;
-        if (remaining > 0) {
-            binding.tvInfoMessage.setText(remaining + "개만 더 모으면 스티커판을 채울 수 있어요!");
-        } else {
-            binding.tvInfoMessage.setText("스티커판을 완성했어요! 🎉");
-        }
+                    batch.commit().addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getContext(), "스티커판이 초기화되었습니다!", Toast.LENGTH_SHORT).show();
+                        // 로컬 상태 리셋 (리스너가 자동 감지하므로 여기서 UI 갱신 안 해도 됨)
+                        isFirstLoad = true;
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "초기화 실패: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                });
     }
 }

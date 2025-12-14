@@ -52,4 +52,8 @@ dependencies {
 
     // 폭죽 라이브러리 사용
     implementation("nl.dionsegijn:konfetti-xml:2.0.4")
+
+    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
+    implementation("com.google.firebase:firebase-firestore")
+
 }

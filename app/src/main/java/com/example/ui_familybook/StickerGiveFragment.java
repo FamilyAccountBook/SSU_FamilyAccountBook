@@ -18,7 +18,7 @@ public class StickerGiveFragment extends DialogFragment {
     private DialogGiveStickerBinding binding;
     private int selectedStickerIndex = -1; // 선택된 스티커 번호
 
-    // ★ 1. Firebase 인스턴스 추가
+    // 1. Firebase 인스턴스 추가
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
