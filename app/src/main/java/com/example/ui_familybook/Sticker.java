@@ -8,14 +8,14 @@ public class Sticker implements Serializable {
     private int stickerIndex;
     private String emoji;
     private String message;
-    private Timestamp timestamp;    //  Firebase 정렬을 위한 시간 객체
+    private long timestamp;    //  Firebase 정렬을 위한 시간 객체
 
     // 1. 빈 생성자 (Firebase Firestore에서 데이터를 불러올 때 필수)
     public Sticker() {
     }
 
     // 2. 데이터 생성용 생성자
-    public Sticker(int stickerIndex, String emoji, String message, Timestamp timestamp) {
+    public Sticker(int stickerIndex, String emoji, String message, long timestamp) {
         this.stickerIndex = stickerIndex;
         this.emoji = emoji;
         this.message = message;
@@ -35,7 +35,7 @@ public class Sticker implements Serializable {
         return message;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
@@ -52,7 +52,7 @@ public class Sticker implements Serializable {
         this.message = message;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

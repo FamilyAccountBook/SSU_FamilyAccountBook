@@ -54,6 +54,5 @@ dependencies {
     implementation("nl.dionsegijn:konfetti-xml:2.0.4")
 
     implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
-    implementation("com.google.firebase:firebase-firestore")
-
+    implementation("com.google.firebase:firebase-database:20.x.x")
 }

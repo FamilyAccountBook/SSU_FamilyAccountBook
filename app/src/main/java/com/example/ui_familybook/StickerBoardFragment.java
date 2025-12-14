@@ -19,11 +19,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ui_familybook.databinding.FragmentStickerboardBinding;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.WriteBatch;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+// ★ Realtime Database 관련 Import로 변경
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,13 +43,14 @@ public class StickerBoardFragment extends Fragment {
     private StickerAdapter adapter;
     private static final int TOTAL_STICKERS = 30;
 
-    // 앱 실행 시 첫 로딩인지 확인하는 플래그 (애니메이션 방지용)
     private boolean isFirstLoad = true;
 
-    // Firebase 관련 변수
-    private FirebaseFirestore db;
-    private ListenerRegistration stickerListener;
-    private String targetChildUid = "child_user_1"; // ★ 실제 앱에서는 로그인한 사용자 UID 사용
+    // ★ 변수 타입 변경: Firestore -> Realtime Database
+    private FirebaseDatabase db;
+    private ValueEventListener stickerListener;
+    private DatabaseReference stickerRef; // 리스너 관리를 위한 DatabaseReference 저장
+
+    private String targetChildUid = "child_user_1";
 
     @Nullable
     @Override
@@ -63,7 +65,12 @@ public class StickerBoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = FirebaseFirestore.getInstance();
+        // ★ Realtime Database 초기화
+        db = FirebaseDatabase.getInstance();
+        // ★ DB Reference 생성: /users/{uid}/stickers 경로를 가리킴
+        stickerRef = db.getReference("users")
+                .child(targetChildUid)
+                .child("stickers");
 
         setupRecyclerView();
         setupClickListeners();
@@ -71,12 +78,13 @@ public class StickerBoardFragment extends Fragment {
         observeStickerUpdates();
     }
 
-    // ★ 중요: 프래그먼트 종료 시 리스너 해제 (메모리 누수/크래시 방지)
+    // ★ 중요: 프래그먼트 종료 시 리스너 해제 (메모리 누수 방지)
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (stickerListener != null) {
-            stickerListener.remove();
+            // ★ Realtime Database 리스너 해제 방식
+            stickerRef.removeEventListener(stickerListener);
             stickerListener = null;
         }
         binding = null;
@@ -95,61 +103,67 @@ public class StickerBoardFragment extends Fragment {
         });
     }
 
+    // ★ Realtime Database 리스너로 변경
     private void observeStickerUpdates() {
-        stickerListener = db.collection("users")
-                .document(targetChildUid)
-                .collection("stickers")
-                .orderBy("timestamp", Query.Direction.ASCENDING)
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        return;
+        stickerListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 1. DB 데이터를 Sticker 객체 리스트로 변환
+                List<Sticker> newStickerList = new ArrayList<>();
+                // Realtime DB의 children을 순회하며 데이터 파싱
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    // Sticker 클래스가 있어야 하며, 빈 생성자가 필수입니다.
+                    Sticker sticker = dataSnapshot.getValue(Sticker.class);
+                    if (sticker != null) {
+                        newStickerList.add(sticker);
                     }
+                }
 
-                    if (snapshots != null) {
-                        // 1. DB 데이터를 Sticker 객체 리스트로 변환
-                        List<Sticker> newStickerList = new ArrayList<>();
-                        for (com.google.firebase.firestore.DocumentSnapshot doc : snapshots.getDocuments()) {
-                            // Sticker 클래스가 있어야 하며, 빈 생성자가 필수입니다.
-                            Sticker sticker = doc.toObject(Sticker.class);
-                            newStickerList.add(sticker);
-                        }
+                // (필요하다면) RTDB는 timestamp 정렬을 자동으로 보장하지 않으므로,
+                // 리스너 등록 시 orderByChild("timestamp")를 사용하고
+                // 여기서 다시 Collections.sort(newStickerList, ...)를 통해 정렬할 수도 있습니다.
 
-                        // 이전 개수와 새 개수 비교
-                        int oldCount = adapter.getFilledCount();
-                        int newCount = newStickerList.size();
+                int oldCount = adapter.getFilledCount();
+                int newCount = newStickerList.size();
 
-                        // 2. 어댑터에 데이터 전달 (화면 갱신)
-                        adapter.submitList(newStickerList);
+                // 2. 어댑터에 데이터 전달 (화면 갱신)
+                adapter.submitList(newStickerList);
 
-                        // 3. UI 텍스트/프로그레스바 갱신
-                        updateProgressUI(newCount);
+                // 3. UI 텍스트/프로그레스바 갱신
+                updateProgressUI(newCount);
 
-                        // 4. 애니메이션 처리 로직
-                        if (isFirstLoad) {
-                            // 첫 로딩때는 애니메이션 실행 안 함
-                            isFirstLoad = false;
-                        } else {
-                            // 실시간 추가: 개수가 늘어났을 때만 마지막 아이템 애니메이션
-                            if (newCount > oldCount) {
-                                binding.stickerRecyclerView.post(() -> {
-                                    animateStickerAtPosition(newCount - 1);
-                                });
-                            }
-                        }
+                // 4. 애니메이션 처리 로직
+                if (isFirstLoad) {
+                    isFirstLoad = false;
+                } else {
+                    if (newCount > oldCount) {
+                        binding.stickerRecyclerView.post(() -> {
+                            animateStickerAtPosition(newCount - 1);
+                        });
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // DB 연결 에러 처리
+                // Toast.makeText(getContext(), "DB 오류: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // ★ Realtime DB 리스너 등록 (timestamp 기준으로 정렬 요청)
+        stickerRef.orderByChild("timestamp").addValueEventListener(stickerListener);
     }
 
-    // UI 업데이트 통합 메서드
+    // 이하는 기존과 동일하며, 인자 없는 updateProgressText() 호출만 updateProgressUI(int)로 변경했습니다.
+    // ...
+
     private void updateProgressUI(int currentCount) {
-        // 텍스트
         binding.tvProgressCount.setText(currentCount + "/30");
 
-        // 프로그레스바
         int progress = (int) ((currentCount / 30f) * 100);
         binding.progressBar.setProgress(progress);
 
-        // 안내 메시지
         int remaining = TOTAL_STICKERS - currentCount;
         if (remaining > 0) {
             binding.tvInfoMessage.setText(remaining + "개만 더 모으면 스티커판을 채울 수 있어요!");
@@ -159,6 +173,7 @@ public class StickerBoardFragment extends Fragment {
     }
 
     private void animateStickerAtPosition(int position) {
+        // ... 기존 코드 유지 ...
         RecyclerView.ViewHolder viewHolder = binding.stickerRecyclerView
                 .findViewHolderForAdapterPosition(position);
 
@@ -173,6 +188,7 @@ public class StickerBoardFragment extends Fragment {
     }
 
     private void animateSticker(View stickerView, int position) {
+        // ... 기존 코드 유지 ...
         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(stickerView, "scaleX", 1f, 0.3f);
         ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(stickerView, "scaleY", 1f, 0.3f);
         ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(stickerView, "scaleX", 0.3f, 1.2f);
@@ -207,7 +223,6 @@ public class StickerBoardFragment extends Fragment {
     }
 
     private void checkCompletion(int position) {
-        // index는 0부터 시작하므로 +1 해서 비교
         if (position + 1 == TOTAL_STICKERS) {
             binding.stickerRecyclerView.postDelayed(() -> {
                 showCompletionAnimation();
@@ -216,6 +231,7 @@ public class StickerBoardFragment extends Fragment {
     }
 
     private void showCompletionAnimation() {
+        // ... 기존 코드 유지 ...
         EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
         Party party = new PartyFactory(emitterConfig)
                 .spread(360)
@@ -254,32 +270,22 @@ public class StickerBoardFragment extends Fragment {
                 .withEndAction(() -> {
                     binding.completionMessage.setVisibility(View.GONE);
 
-                    // ★ DB 데이터 삭제 로직 실행
+                    // DB 데이터 삭제 로직 실행
                     clearStickersInDb();
                 })
                 .start();
     }
 
-    // ★ DB의 스티커 데이터를 모두 지우는 메서드
+    // ★ Realtime Database 데이터 삭제 메서드로 변경
     private void clearStickersInDb() {
-        db.collection("users")
-                .document(targetChildUid)
-                .collection("stickers")
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    // Batch(일괄 처리)를 사용하여 한 번에 삭제
-                    WriteBatch batch = db.batch();
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        batch.delete(document.getReference());
-                    }
-
-                    batch.commit().addOnSuccessListener(aVoid -> {
-                        Toast.makeText(getContext(), "스티커판이 초기화되었습니다!", Toast.LENGTH_SHORT).show();
-                        // 로컬 상태 리셋 (리스너가 자동 감지하므로 여기서 UI 갱신 안 해도 됨)
-                        isFirstLoad = true;
-                    }).addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "초기화 실패: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+        // 해당 Reference의 값을 null로 설정하여 전체 컬렉션 삭제
+        stickerRef.setValue(null)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "스티커판이 초기화되었습니다!", Toast.LENGTH_SHORT).show();
+                    isFirstLoad = true;
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "초기화 실패: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 }
